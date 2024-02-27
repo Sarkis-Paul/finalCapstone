@@ -18,7 +18,7 @@ nlp.add_pipe("spacytextblob")
 
 
 # Data preprocessing
-dataframe = pd.read_csv("amazon_product_reviews.csv")
+dataframe = pd.read_csv("amazon_product_reviews.csv") # Reading in the csv file containing amazon reviews
 
 # Removing and replacing words that do not add any sentimental meaning
 reviews = dataframe['reviews.text'].str.replace(" is ", " ")
@@ -43,7 +43,7 @@ total_no = len(cleanreviews) # Total number of reviews
 polarity = np.zeros(total_no) # Array to contain all polarity values 
 subjectivity = np.zeros(total_no) # Array to contain all subjectivity/sentiment strength values
 
-for i in range(0, total_no):    
+for i in range(0, total_no): # Iterating through the reviews and collecting values of polarity and subjectivity
     polarity[i], subjectivity[i] = sentiment_analysis(cleanreviews[i])
 
 mean_polarity = sum(polarity)/total_no
@@ -54,27 +54,29 @@ print("Mean Review Polarity:", mean_polarity)
 print("Mean Review Subjectivity:", mean_subjectivity)
 
 # Printing out a message to interpret the numerical results
-if mean_polarity < 0.4 and mean_polarity >= -0.4:
-    print("The reviews are a Neutral rating on average.")
+if mean_polarity < 0.4 and mean_polarity >= -0.4: # Condition to define the review's sentiment as 'Neutral'
+    print("The reviews are a Neutral rating on average.") 
     
-elif mean_polarity < -0.4:
+elif mean_polarity < -0.4: # Condition to define the review's sentiment as 'Negative'
     print("The reviews have a Negative rating on average.")
     
-else:
+else: # Anything else will define the review's sentiment as 'Positive'
     print("The reviews have a Positive rating on average.")    
     
-if mean_subjectivity < 0.5:
+if mean_subjectivity < 0.5: # Condition to define the review's sentiment as subjective
     print("Results may be potentially biased - there little objective confidence in these results.")
 
-else:
+else: # Condition to define the review's sentiment as objective
     print("Results are reliable as reviews appear to be objective.")
     
 ######################################################################################################
 #%%
+### The Section below compares the first review with the rest and obtains statistics
+
 # Calculating the average and maximum similarity of the first review with the other reviews
 comparison_to = nlp(cleanreviews[0]) # First review
     
-# variable to store and update mean and max values of similarity
+# variables to store and update mean and max values of similarity
 maxsimilarityvalue = 0
 meansimilarityvalue = 0
     
