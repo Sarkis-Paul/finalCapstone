@@ -23,6 +23,8 @@ dataframe = pd.read_csv("amazon_product_reviews.csv")
 # Removing and replacing words that do not add any sentimental meaning
 reviews = dataframe['reviews.text'].str.replace(" is ", " ")
 reviews = reviews.str.replace(" and ", " ")
+reviews = reviews.str.replace(" are ", " ")
+reviews = reviews.str.replace(" were ", " ")
 
 # Remove any 'Nan's and 
 cleanreviews = reviews.dropna()
